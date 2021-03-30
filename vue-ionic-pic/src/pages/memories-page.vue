@@ -1,38 +1,35 @@
 <template>
   <base-layout page-title="All Memories">
-    <ion-list>
-      <ion-item
-        v-for="eachMemory in allMemories"
-        :router-link="`/memory-details/${eachMemory.id}`"
-        :key="eachMemory.id"
-      >
-        <ion-thumbnail slot="start">
-          <ion-img :src="eachMemory.image" :alt="eachMemory.title"></ion-img>
-        </ion-thumbnail>
-        <ion-label>
-          {{ eachMemory.title }}
-        </ion-label>
-      </ion-item>
-    </ion-list>
+    <template v-slot:actions-end>
+      <ion-button router-link="/memories/add">
+        <ion-icon slot="icon-only" :icon="add"></ion-icon>
+      </ion-button>
+    </template>
+    <memories-list :allMemories="allMemoriesList"> </memories-list>
   </base-layout>
 </template>
 
 <script>
-import { IonList, IonItem, IonImg, IonThumbnail, IonLabel } from "@ionic/vue";
+import { IonButton, IonIcon } from "@ionic/vue";
+import { add } from "ionicons/icons";
+import MemoriesList from "../components/memories/MemoriesList.vue";
 
 export default {
   components: {
-    IonList,
-    IonItem,
-    IonImg,
-    IonThumbnail,
-    IonLabel,
+    MemoriesList,
+    IonButton,
+    IonIcon,
   },
+  // mounted() {
+  //   console.log("allMemoriesList in mounted", this.allMemoriesList);
+  // },
   data() {
-    return {};
+    return {
+      add,
+    };
   },
   computed: {
-    allMemories() {
+    allMemoriesList() {
       return this.$store.getters.getMemories;
     },
   },

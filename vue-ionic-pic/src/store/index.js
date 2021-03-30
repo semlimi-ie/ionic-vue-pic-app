@@ -17,14 +17,14 @@ const store = createStore({
           description: "It was a really nice trip!",
         },
         {
-          id: "m1",
+          id: "m2",
           image:
             "https://blog1.fkimg.com/wp-content/uploads/2019/06/ka-anapali-beach-610x350.jpg",
           title: "Surfing the sea side",
           description: "Feeling the cool breeze",
         },
         {
-          id: "m1",
+          id: "m3",
           image:
             "https://indonesiaexpat.id/wp-content/uploads/2017/04/Malaysian-Peranakan-Cuisine-Image-via-Lipstiq.jpg",
           title: "Good eating",
@@ -37,6 +37,30 @@ const store = createStore({
   getters: {
     getMemories(state) {
       return state.memories;
+    },
+    getMemoryById(state) {
+      return (memoryId) => {
+        return state.memories.find(
+          (singleMemory) => singleMemory.id === memoryId
+        );
+      };
+    },
+  },
+  mutations: {
+    ADD_MEMORY(state, memoryData) {
+      const newMemory = {
+        id: new Date().toISOString(),
+        image: memoryData.imageUrl,
+        title: memoryData.title,
+        description: memoryData.description,
+      };
+
+      state.memories.unshift(newMemory);
+    },
+  },
+  actions: {
+    addMemory({ commit }, memoryData) {
+      commit("ADD_MEMORY", memoryData);
     },
   },
 });

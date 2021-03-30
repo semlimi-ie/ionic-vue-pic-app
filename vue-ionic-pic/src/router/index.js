@@ -14,6 +14,10 @@ const routes = [
     path: "/memory-details/:id",
     component: () => import("../pages/memory-details-page.vue"),
   },
+  {
+    path: "/memories/add",
+    component: () => import("../pages/add-memory-page.vue"),
+  },
 ];
 
 const router = createRouter({
